@@ -50,6 +50,18 @@
         
         /* Contenedor Principal (Wrapper): Controla la geometría, sombras y aislamiento del componente */
         .card {
+            background: #ffffff;
+            width: 90%;
+            max-width: 350px; /* Restricción de layout para evitar estiramiento en pantallas de escritorio */
+            border-radius: var(--border-radius-lg);
+            overflow: hidden; /* Encapsula el contenido secundario dentro de los límites redondeados */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); /* Sombra de profundidad calculada para elevación UI */
+            text-align: center;
+            animation: fadeIn 0.8s ease-out forwards; /* Inyección de la animación de montaje */
+        }
+
+        /* Bloque Superior (Hero Header): Zona de alto impacto visual que define la identidad */
+        .header {
             content: "";
             position: absolute;
             top: 0;
@@ -63,13 +75,6 @@
             opacity: 0.05; 
             z-index: 0; 
             pointer-events: none;
-        }
-
-        /* Bloque Superior (Hero Header): Zona de alto impacto visual que define la identidad */
-        .header {
-            background: var(--bg-gradient);
-            padding: 40px 20px;
-            color: #ffffff;
         }
 
         /* Identificador Gráfico (Avatar): Área reservada para iniciales o máscara tipográfica */
