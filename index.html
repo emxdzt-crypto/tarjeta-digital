@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>López Color - Gerencia General</title>
+    
+    <!-- Recursos Externos: CDN de FontAwesome v6.0.0 para renderizado de vectores (iconos) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /**
+         * ====================================================================
+         * 1. VARIABLES GLOBALES (DESIGN TOKENS)
+         * ====================================================================
+         * Centralización de propiedades estéticas para asegurar mantenibilidad y consistencia visual.
+         */
+        :root {
+            --primary-color: #004a99; /* Identidad de marca: Azul principal */
+            --accent-color: #00c6ff;  /* Color de acento para iluminación y contrastes */
+            --bg-gradient: linear-gradient(135deg, #004a99 0%, #00c6ff 100%); /* Ángulo de transición del header */
+            --transition-speed: 0.3s; /* Tiempo base para todas las microinteracciones */
+            --border-radius-lg: 20px; /* Radio de curvatura para contenedores mayores */
+            --border-radius-md: 12px; /* Radio de curvatura para componentes internos */
+        }
+
+        /**
+         * ====================================================================
+         * 2. ESTILOS BASE Y RESERVA (RESET & BASE STYLES)
+         * ====================================================================
+         * Normalización del viewport y configuración del motor de renderizado de fuentes.
+         */
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #f0f2f5; /* Tono neutro para mitigar la fatiga visual */
+            margin: 0;
+            display: flex;
+            justify-content: center; /* Alineación del nodo raíz en el eje horizontal */
+            align-items: center;     /* Alineación del nodo raíz en el eje vertical */
+            min-height: 100vh;       /* Garantiza el centrado absoluto en viewports móviles */
+            -webkit-font-smoothing: antialiased; /* Suavizado de tipografía para motores WebKit (iOS/Safari) */
+            -moz-osx-font-smoothing: grayscale;  /* Suavizado de tipografía para motores Gecko (Firefox macOS) */
+        }
+
+        /**
+         * ====================================================================
+         * 3. COMPONENTES DE LA INTERFAZ DE USUARIO (UI COMPONENTS)
+         * ====================================================================
+         */
+        
+        /* Contenedor Principal (Wrapper): Controla la geometría, sombras y aislamiento del componente */
+        .card {
+            background: #ffffff;
+            width: 90%;
+            max-width: 350px; /* Restricción de layout para evitar estiramiento en pantallas de escritorio */
+            border-radius: var(--border-radius-lg);
+            overflow: hidden; /* Encapsula el contenido secundario dentro de los límites redondeados */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); /* Sombra de profundidad calculada para elevación UI */
+            text-align: center;
+            animation: fadeIn 0.8s ease-out forwards; /* Inyección de la animación de montaje */
+        }
+
+        /* Bloque Superior (Hero Header): Zona de alto impacto visual que define la identidad */
+        .header {
+            background: var(--bg-gradient);
+            padding: 40px 20px;
+            color: #ffffff;
+        }
+
+        /* Identificador Gráfico (Avatar): Área reservada para iniciales o máscara tipográfica */
+        .avatar {
+            width: 80px;
+            height: 80px;
+            background: #ffffff;
+            color: var(--primary-color);
+            border-radius: 50%; /* Geometría circular perfecta */
+            display: flex;
+            justify-content: center; /* Centrado bidimensional del contenido interno */
+            align-items: center;
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0 auto 15px; /* Margen auto-horizontal para centrado de bloque */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 { 
+            margin: 0; 
+            font-size: 24px; 
+            letter-spacing: 0.5px; 
+            font-weight: 600;
+        }
+        
+        .tagline { 
+            margin: 5px 0 0; 
+            font-size: 14px; 
+            opacity: 0.9; 
+            font-weight: 300; 
+        }
+
+        /* Cuerpo de Contenido: Contenedor con padding para el grupo de canales de comunicación */
+        .content { 
+            padding: 30px 20px; 
+        }
+
+        /* Filas de Comunicación (Action Links): Puntos de contacto interactivos */
+        .info-item {
+            display: flex;
+            align-items: center; /* Alineación del icono vectorial con las líneas de texto */
+            background: #f8f9fa;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: var(--border-radius-md);
+            text-decoration: none; /* Sanitización de estilos nativos de hipervínculos */
+            color: #333333;
+            transition: all var(--transition-speed) ease; /* Transición suave de propiedades interpolables */
+            border: 1px solid #eeeeee;
+        }
+
+        /* Pseudo-clase Hover: Estado de enfoque y respuesta a la interacción física/táctil */
+        .info-item:hover {
+            background: #ffffff;
+            transform: scale(1.03); /* Micro-escala que emula elevación al interactuar */
+            border-color: var(--primary-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Normalización de Iconos: Fuerza dimensiones simétricas para evitar desfases en los textos */
+        .info-item i {
+            font-size: 20px;
+            color: var(--primary-color);
+            margin-right: 15px;
+            width: 25px; /* Ancho fijo para alinear el inicio del texto en el eje vertical */
+        }
+
+        /* Jerarquía Tipográfica de la Información */
+        .info-text span { 
+            display: block; /* Fuerza salto de línea para separar la etiqueta del valor */
+            font-size: 12px; 
+            color: #888888; 
+            text-align: left; 
+        }
+        
+        .info-text strong { 
+            font-size: 14px; 
+            font-weight: 600;
+        }
+
+        /* Botón de Llamada a la Acción Principal (Primary CTA) */
+        .btn-vcf {
+            display: block;
+            background: var(--primary-color);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 16px;
+            border-radius: var(--border-radius-md);
+            margin-top: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0, 74, 153, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Pie de Página (Footer Meta) */
+        .footer {
+            padding-bottom: 25px;
+            font-size: 12px;
+            color: #bbbbbb;
+        }
+
+        /**
+         * ====================================================================
+         * 4. CONTROL DE ANIMACIONES (KEYFRAMES)
+         * ====================================================================
+         */
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px); /* Desfase vertical inicial */
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);    /* Estado de reposo final */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Contenedor Base del DOM (Document Object Model) -->
+    <div class="card">
+        
+        <!-- Bloque de Identidad Estructural -->
+        <header class="header">
+            <div class="avatar">WL</div>
+            <h1>Wilfrido López Padilla</h1>
+            <p class="tagline">Gerencia General</p>
+        </header>
+
+        <!-- Bloque Operativo de Interacciones -->
+        <main class="content">
+            
+            <!-- Target de Comunicación: Disparador del protocolo nativo de telefonía ('tel:') -->
+            <a href="tel:4525250216" class="info-item">
+                <i class="fas fa-phone-alt"></i>
+                <div class="info-text">
+                    <span>Teléfono</span>
+                    <strong>452 525 0216</strong>
+                </div>
+            </a>
+
+            <!-- Target de Comunicación: Disparador del cliente de correo electrónico local ('mailto:') -->
+            <a href="mailto:wlopez@lopezimpresores.com.mx" class="info-item">
+                <i class="fas fa-envelope"></i>
+                <div class="info-text">
+                    <span>Correo Electrónico</span>
+                    <strong>wlopez@lopezimpresores.com.mx</strong>
+                </div>
+            </a>
+
+            <!-- Target de Comunicación: Hipervínculo externo georreferenciado (Google Maps) -->
+            <!-- rel="noopener": Medida de seguridad que mitiga ataques de secuestro de ventana externa -->
+            <a href="https://maps.app.goo.gl/xRUXKP3uey3gCfa66" target="_blank" rel="noopener" class="info-item">
+                <i class="fas fa-building"></i>
+                <div class="info-text">
+                    <span>Ubicación de la Empresa</span>
+                    <strong>López Impresores</strong>
+                </div>
+            </a>
+
+            <!-- Objeto de Inyección de Datos: Payload vCard 3.0 embebido mediante URI de datos -->
+            <a href="data:text/vcard;charset=utf-8,BEGIN%3AVCARD%0AVERSION%3A3.0%0AFN%3AWilfrido%20L%C3%B3pez%20Padilla%0AORG%3AL%C3%B3pez%20Impresores%0ATITLE%3AGerencia%20General%0ATEL%3BTYPE%3DCELL%3A4525250216%0AEMAIL%3Awlopez%40lopezimpresores.com.mx%0AEND%3AVCARD" 
+               download="Contacto_GerenciaGeneral.vcf" 
+               class="btn-vcf">
+                <i class="fas fa-user-plus"></i> Guardar Contacto
+            </a>
+        </main>
+
+        <!-- Bloque de Cierre e Información de Propiedad Intelectual -->
+        <footer class="footer">
+            López Color &copy; 2026
+        </footer>
+    </div>
+
+</body>
+</html>
